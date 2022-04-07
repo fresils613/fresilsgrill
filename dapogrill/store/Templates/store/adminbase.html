@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <title>Dapo Grills</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+        <link rel="stylesheet" href="{% static 'css/all.css'%}">
+        <link rel="stylesheet" href="{% static 'css/bootstrap.css'%}">
+        <link rel="stylesheet" href="{% static 'css/style.css'%}">
+        <style>
+          #total-orders{
+		      background-color: #4cb4c7;
+          }
+          #orders-delivered{
+          background-color: #7abecc;
+          }
+
+          #orders-pending{
+          background-color: #7CD1C0;
+          }
+        </style>
+     </head>
+  <body>
+    {% include 'store/adminnavbar.html' %}
+    <div class="container">
+      {% block content %}{% endblock content %}
+    </div>
+
+<script src="{% static 'js/jquery-3.3.1.min.js'%}"></script>
+<script src="{% static 'js/bootstrap.bundle.min.js'%}"></script>
+<script src="{% static 'js/lightbox.min.js'%}"></script>
+<script src="{% static 'js/main.js'%}"></script>
+
+</body>
+</html>

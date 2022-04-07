@@ -1,0 +1,63 @@
+{% extends 'store/adminbase.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+        <a  class="btn btn-info" href="{% url 'adminhome' %}">&#x2190; Pending Orders</a>
+        <br>
+        <br>
+
+
+        <h3>Order Details</h3>
+        <hr>
+        <p><span class= "font-weight-bold"> Order Name:</span>  {{shipping.customer}}</p>
+        <p><span class= "font-weight-bold"> Order ID:</span>   {{order.transaction_id}}</p>
+        <p><span class= "font-weight-bold"> Order Status:</span>  {{order.order_status}}</p>
+        <p><span class= "font-weight-bold"> Customer Address: </span>  {{shipping.address}}</p>
+        <p><span class= "font-weight-bold"> Date Received: </span>  {{order.date_ordered}}</p>
+        <p><span class= "font-weight-bold"> Order Contact:</span>  {{shipping.phone}} ({{shipping.customer.email}})</p>
+        <p><span class= "font-weight-bold"> Payment Method: </span>  {{shipping.Payment_method}}</p>
+        <!-- The table heading -->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>S/N</th>
+                    <th> NAME </th>
+                    <th> QUANTITY </th>
+                    <th> PRICE </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <!--  The Table Detals -->
+                {% for order in orderitems %}
+                <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td> {{order.product.name}} </td>
+                        <td>{{order.quantity}}</td>
+                        <td>{{order.get_total}}</td>
+                    </tr>
+                {%endfor%}
+                <!-- <tr>
+                    <th colspan="4" class="text-rght">Total</th>
+                    <th>#{{total.get_cart_total|floatformat:2}}</th>
+                </tr> -->
+            </tbody>
+        </table>
+    <form action="{%  url 'adminchangestatus' order.id%}" method="POST">
+        {%csrf_token%}
+        <select name="status">
+            {%for i,j in allstatus%}
+                <option value="{{i}}" {% if i == order.order_status %}selected{%endif%}>{{j}}</option>
+            {%endfor%}
+        </select>
+        <button class="btn btn-info">Change</button>
+    </form>
+
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

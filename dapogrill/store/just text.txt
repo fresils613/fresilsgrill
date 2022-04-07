@@ -1,0 +1,36 @@
+<!-- {% extends 'store/adminbase.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+        <h3>Pending Orders</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>S/N</th>
+                    <th>Customer </th>
+                    <th>Transaction Id</th>
+                    <th> Amount </th>
+                    <th> Date Added </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td> {{order.customer.name}} </td>
+                        <td><a href="{% url 'adminhomeid' order.id%}">{{order.transaction_id}}</a></td>
+                        <td># {{ order.get_cart_total|floatformat:2 }} </td>
+                        <td>{{order.date_ordered}}</td>
+                    </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+
+        </div>
+    </div>
+</div>
+
+{% endblock content %} -->

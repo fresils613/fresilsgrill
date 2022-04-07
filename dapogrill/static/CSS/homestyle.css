@@ -1,0 +1,155 @@
+/* body {
+    font-family: 'Lato', sans-serif;
+}
+
+.cover {
+    position: relative;
+    z-index: 0;
+    width: 100;
+    background: #e79702;
+}
+
+.phone {
+    z-index: 1;
+    font-weight: 200;
+}
+
+.phone i {
+    color: #000;
+}
+
+.phone a {
+    color: #000;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.social-icon {
+    display: inline-block;
+    width: 50%;
+}
+
+.social-icon p {
+    display: block;
+    width: 100%;
+}
+
+.social-icon p a {
+    height: 30px;
+    margin-right: 10px;
+}
+
+.social-icon p a i {
+    font-size: 13px;
+    color: #000;
+}
+
+.social-icon p a:hover {
+    background: #f8aa02;
+    border-color: #f8aa02;
+}
+
+.social-icon p a:hover i {
+    color: white
+} */
+
+/* .start {
+    background-image: url("{% static 'images/header-background2.jpg' %}");
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.img-responsive {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.description {
+    left: 50%;
+    position: absolute;
+    top: 45%;
+    transform: translate(-50%, -55%);
+    text-align: center;
+}
+
+.description h1 {
+    color: white;
+    font: 200;
+    text-align: justify;
+}
+
+.description p {
+    color: #fff;
+    font-size: 1.3rem;
+    line-height: 1.5;
+}
+
+.dropdown {
+    width: 100%;
+    height: 200%;
+}
+
+.dropbtn {
+    border: none;
+    cursor: pointer;
+}
+
+
+.dropdown-menu a {
+    width: 200px;
+    height: 300%;
+}
+
+.dropdown button {
+    background-color: #040C0E;
+    color: #cfa342;
+    border-style: dotted;
+    border-width: 2px;
+    border-color: #222;
+    width: 100%;
+    height: 200%;
+}
+
+.dropdown button:hover {
+    background-color: #cfa342;
+    color: #040C0E;
+    width: 100%;
+    height: 200%;
+}
+
+.dropdown:active {
+    background-color: #cfa342;
+    color: #040C0E;
+    width: 100%;
+    height: 200%;
+}
+
+.page-footer {
+    background-color: #222;
+    color: #ccc;
+    padding: 60px 0 30px;
+}
+
+.footer-copyright {
+    color: #666;
+    padding: 40px 0;
+} */
+
+.home-page {
+    text-align: right;
+    background-color: red;
+}
+#total-orders{
+    background-color: #4cb4c7;
+}
+
+
+#orders-delivered{
+background-color: #7abecc;
+}
+
+#orders-pending{
+background-color: #7CD1C0;
+}

@@ -1,0 +1,1 @@
+web gunicorn dapogrill.wsgi:application --log-file -

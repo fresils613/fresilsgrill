@@ -1,0 +1,204 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+{% block title %} 
+Checkout
+{% endblock title %}
+
+{% block content %}
+<div class="row">
+<div class="col-lg-6">
+    <div class="box-element" id="form-wrapper">
+        <form id="paymentForm">
+            <!--  The user information  -->
+            <div id="user-info">
+                <div class="form-field">
+                    <input required class="form-control" type="text" name="name" placeholder="Name..">
+                </div>
+                <div class="form-field">
+                    <input required id="email-address" class="form-control" type="email" name="email" placeholder="Email..">
+                </div>
+            </div>
+                    
+            <!-- The Shipping information  -->
+            <div id="shipping-info">
+                <hr>
+                <p>Shipping Information:</p>
+                <hr>
+                <div class="form-field">
+                    <select class="form-control" name="address" id="address" onchange="myFunction()">
+                    {%for i,j in locations%}
+                    <option value="{{i}} " data-price="{{j}}">{{i}}</option>
+                    {%endfor%}
+                    </select>
+                </div>
+
+                <div class="form-field">
+                    <input class="form-control" type="text" name="addressfull" placeholder=" Your Full Location">
+                </div>
+
+                <div class="form-field">
+                    <input class="form-control" type="text" name="phone" placeholder="phone Number" pattern="[0-9]{11}">
+                </div>
+                
+                <div class="form-field">
+                    <select class="form-control" id="payment-method" name="Payment_method">
+                    {%for i,j in payment_method%}
+                    <option value="{{i}} ">{{j}}</option>
+                    {%endfor%}
+                </select>
+                </div>
+            </div>
+            <hr>
+            <div class="form-submit">
+                <button type="submit" class="btn btn-warning  btn-block" id="payBtn"> Pay </button>
+                <!-- <button type="submit" class="btn btn-warning  btn-block" id="make-payment"> Pay </button> -->
+            </div>    
+        </form>
+    </div>
+
+    <br>			
+</div>
+
+<!-- The Food Details -->
+<div class="col-lg-6">
+    <div class="box-element">
+        <a  class="btn btn-warning" href="{% url 'cart' %}">&#x2190; Back to Cart</a>
+        <hr>
+        <h3>Order Summary</h3>
+        <hr>
+        <h5>Items:{{order.get_cart_item}}, #{{order.get_cart_total|floatformat:2}}</h5> 
+        <h5>Shipping Price: #<span id="ship"></span></h5>
+        <h5>Total:   # <span id="totalcost"></span></h5>
+
+        <hr>
+        <hr>
+
+        {% for item in items%}
+        <div class="cart-row">
+            <div style="flex:2"><img class="row-image" src="{{item.product.imageURL}}"></div>
+            <div style="flex:2"><p>{{item.product.name}}</p></div>
+            <div style="flex:1"><p>#{{item.product.price|floatformat:2}}</p></div>
+            <div style="flex:1"><p>{{item.quantity}}</p></div>
+        </div>
+        {%endfor%} 
+    </div>
+</div>
+</div>
+    
+
+<!-- Javascrpt used for detamining the shipping price and payment information -->
+<script>
+    const shippingPrice = document.getElementById('ship');
+    const totalCost = document.getElementById('totalcost');
+    const deliveyPrice =  document.getElementById('address').selectedOptions[0].getAttribute('data-price');
+    shippingPrice.innerText = deliveyPrice;
+    totalCost.innerText = Number(deliveyPrice) + {{ order.get_cart_total|floatformat:2}} 
+
+    function myFunction() {
+        const dp = document.getElementById('address').selectedOptions[0].getAttribute('data-price');
+        shippingPrice.innerText = dp;
+        totalCost.innerText = Number(dp) + {{order.get_cart_total|floatformat:2}} 
+    }
+    var shipping = '{{order.shipping|floatformat:2}}'
+    var total = '{{order.get_cart_total|floatformat:2}}'
+    if (shipping == 'False'){
+        document.getElementById('shipping-info').innerHTML = ''
+    }
+
+    var form = document.getElementById('paymentForm')
+    form.addEventListener('submit', function(e){
+        e.preventDefault()
+        console.log('Form submitted ....')
+        var x = document.getElementById("payment-method").value;
+        const sel = document.getElementById('address');
+        const delivery_price = sel.options[sel.selectedIndex].getAttribute('data-price')
+        x = x.trim()
+        var payBtn = document.getElementById("payBtn");
+        if (x === "Pay On Delivery") {
+            submitFormData()
+        } else if (x === "Card Payment") {
+            payWithPaystack(e, delivery_price)
+        }
+        document.getElementById('form-button').classList.add("hidden");
+        document.getElementById('payment-info').classList.remove("hidden");
+    })
+
+    // document.getElementById('make-payment').addEventListener('click', function(e){
+    //     submitFormData()
+    // })
+
+    // function for unauthorized user 
+    function submitFormData(){
+        console.log('payment button clicked')
+
+        var userFormData = {
+            'name': null,
+            'email':null,
+            'total':total,
+        }
+        var shippingInfo = {
+            'address': null,
+            'phone': null,
+            'addressfull':null,
+            'Payment_method':null,
+        }
+
+        if(shipping != 'False'){
+            shippingInfo.addressfull= form.addressfull.value
+            shippingInfo.address = form.address.value
+            shippingInfo.phone = form.phone.value
+            shippingInfo.Payment_method = form.Payment_method.value 
+        }
+
+        if (user == 'AnonymousUser'){
+            userFormData.name = form.name.value
+            userFormData.email = form.email.value
+        }
+
+    var url = '/process_order/'
+    fetch(url, {
+        method: 'POST',
+        headers:{
+            'Content-Type':'application/json',
+            'X-CSRFToken':csrftoken,
+        },
+        body:JSON.stringify({'form':userFormData, 'shipping':shippingInfo})   
+    })
+    .then((response) => response.json())
+    .then((data)=>{
+        console.log('success:', data);
+        alert('Transaction Completed');
+
+        cart = {}
+        document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+        window.location.href = "{% url 'store' %}"
+    })
+    }
+</script>
+
+
+<!-- The paystack gateway -->
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<script>
+const paymentForm = document.getElementById('paymentForm');
+// paymentForm.addEventListener("submit", payWithPaystack, false);
+function payWithPaystack(e,delivery_price) {
+  e.preventDefault();
+  let handler = PaystackPop.setup({
+    key: 'pk_test_3a4777959296203bc9cc74a813dcf2a9fe7dbbc0', // Replace with your public key
+    email: document.getElementById("email-address").value,
+    amount: ({{order.get_cart_total|floatformat:2}} + Number(delivery_price)) * 100,
+    ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+    // label: "Optional string that replaces customer email"
+    callback: function(response){
+        submitFormData()
+    },
+    onClose: function(){
+      alert('Window closed.');
+    },
+  });
+  handler.openIframe();
+}
+</script>
+{% endblock content %}

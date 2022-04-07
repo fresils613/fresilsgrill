@@ -1,0 +1,24 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+.move {
+    display: block;
+    max-width: 100%;
+    height: auto;
+
+}
+</style>
+<header class="page-header start container-fluid">
+    <div class="overlay"></div>
+    <div class="description">
+        <h1>Welcome to Dapo Grills!</h1>
+         </div>
+     <div class="header move">
+        <img class="img-responsive" src="{% static 'images/header-background2.jpg'%}">
+
+        </div> 
+</header>
+
+{% endblock content %}

@@ -1,0 +1,38 @@
+{%  extends 'store/adminbase.html' %}
+
+{% block content %}
+<br>
+
+{% include 'store/adminstatus.html'%}
+
+<div class="row">
+	<div class="col-md-12">
+		<h5>LAST 5 ORDERS</h5>
+		<hr>
+		<div class="card card-body">
+			
+			<table class="table table-sm">
+				<tr>
+                    <th> Customer Name</th>
+                    <th>Order Id</th>
+					<th>Date Orderd</th>
+                    <th>Status</th>					
+				</tr>
+
+				{% for order in orders %}
+					<tr>
+						<td>{{order.customer.name}}</td>
+						<td>{{order.transaction_id}}</td>
+                        <td>{{order.date_ordered}}</td>
+                        <td> {{order.order_status}}</td>
+					</tr>
+				{% endfor %}
+
+		
+			</table>
+		</div>
+	</div>
+
+</div>
+
+{% endblock %}

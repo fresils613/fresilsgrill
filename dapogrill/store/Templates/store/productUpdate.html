@@ -1,0 +1,42 @@
+{%  extends 'store/adminbase.html' %}
+
+{% block content %}
+
+<section id="login" class="bg-light py-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 mx-auto">
+              <div class="card">
+                <div class="card-header bg-info  text-white">
+                  <h4> Add New Product </h4>
+                </div>
+                <div class="card-body">
+                {% include 'store/alert.html' %}
+
+                  <form action="{% url 'product' %}" method="POST" enctype="multipart/form-data">
+                      {% csrf_token %}
+                    <div class="form-group">
+                      <label for="name"> Name </label>
+                      <input type="text" name="name" class="form-control" required>
+                    </div>
+    
+                    <div class="form-group">
+                      <label for="price"> Price </label>
+                      <input type="number" name="price" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="file" name="image" required>
+                    </div>
+                     
+                    <input type="submit" value="Login" class="btn btn-info btn-block">
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    
+
+{% endblock %}
