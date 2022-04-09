@@ -1,14 +1,12 @@
 # Fresils Grill
 # This is an Ecommerce Website.
 
-#STEPS
+**#STEPS**
 
-
-**STEP 1** 
+**#Instalation**
 Download or clone the folder 
 
 # Activate the virtual enviroment 
-**Step 2 **
 1. Launch the folder in your IDE (Visual Studio)
 2.  Open the IDE terminal 
 3.  Run the following code:
@@ -18,6 +16,7 @@ Download or clone the folder
     4. cd ..
     5. cd .
     6. .
- # RUNSERVER
- Enter the Dapogrill directory 
- Run python manage.py runserver.
+ 
+ # Runserver
+ 1. Enter the Dapogrill directory 
+ 2. Run python manage.py runserver.
