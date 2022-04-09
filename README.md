@@ -18,5 +18,6 @@ Download or clone the folder
     6. .
  
  # Runserver
- 1. Enter the Dapogrill directory 
- 2. Run python manage.py runserver.
+ 1. Enter the Dapogrill directory. 
+ 2. pip insatll -r requirements.txt.
+ 3. Run python manage.py runserver.
