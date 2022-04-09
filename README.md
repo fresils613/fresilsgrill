@@ -15,7 +15,6 @@ Download or clone the folder
     3. Activate.bat
     4. cd ..
     5. cd .
-    6. .
  
  # Runserver
  1. Enter the Dapogrill directory. 
