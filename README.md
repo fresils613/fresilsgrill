@@ -13,8 +13,7 @@ Download or clone the folder
     1. cd Venv 
     2. cd Script 
     3. Activate.bat
-    4. cd ..
-    5. cd .
+    4. Return to the base directory
  
  # Runserver
  1. Enter the Dapogrill directory. 
